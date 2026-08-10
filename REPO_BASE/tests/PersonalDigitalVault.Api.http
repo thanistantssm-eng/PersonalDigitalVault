@@ -1,0 +1,132 @@
+@baseUrl = https://localhost:7187
+@token = PASTE_USER_OR_ADMIN_JWT_HERE
+@folderId = PASTE_FOLDER_ID_HERE
+@documentId = PASTE_DOCUMENT_ID_HERE
+@credentialId = PASTE_CREDENTIAL_ID_HERE
+@categoryId = PASTE_CATEGORY_ID_HERE
+
+### Register
+POST {{baseUrl}}/api/auth/register
+Content-Type: application/json
+
+{
+  "fullName": "Thanistan User",
+  "email": "thanistan@example.com",
+  "password": "StrongPass!123",
+  "phoneNumber": "+94770000000"
+}
+
+### Login
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "thanistan@example.com",
+  "password": "StrongPass!123"
+}
+
+### Profile
+GET {{baseUrl}}/api/profile
+Authorization: Bearer {{token}}
+
+### Create folder
+POST {{baseUrl}}/api/folders
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "Certificates"
+}
+
+### List folders
+GET {{baseUrl}}/api/folders
+Authorization: Bearer {{token}}
+
+### Create category
+POST {{baseUrl}}/api/categories
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "Education"
+}
+
+### List categories
+GET {{baseUrl}}/api/categories
+Authorization: Bearer {{token}}
+
+### Rename category
+PUT {{baseUrl}}/api/categories/{{categoryId}}
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "Education & Study"
+}
+
+### Upload document (replace the file path)
+POST {{baseUrl}}/api/documents
+Authorization: Bearer {{token}}
+Content-Type: multipart/form-data; boundary=PDVBoundary
+
+--PDVBoundary
+Content-Disposition: form-data; name="FolderId"
+
+{{folderId}}
+--PDVBoundary
+Content-Disposition: form-data; name="File"; filename="sample.pdf"
+Content-Type: application/pdf
+
+< ./sample.pdf
+--PDVBoundary--
+
+### List documents
+GET {{baseUrl}}/api/documents?search=sample
+Authorization: Bearer {{token}}
+
+### Secure preview (PDF/TXT/JPG/JPEG/PNG)
+GET {{baseUrl}}/api/documents/{{documentId}}/preview
+Authorization: Bearer {{token}}
+
+### Verify integrity
+GET {{baseUrl}}/api/documents/{{documentId}}/integrity
+Authorization: Bearer {{token}}
+
+### Download document
+GET {{baseUrl}}/api/documents/{{documentId}}/download
+Authorization: Bearer {{token}}
+
+### Create credential
+POST {{baseUrl}}/api/credentials
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "title": "College Portal",
+  "category": "Education",
+  "username": "student@example.com",
+  "secret": "MyPrivatePassword123!",
+  "website": "https://example.com",
+  "notes": "Personal account"
+}
+
+### Credential list (masked)
+GET {{baseUrl}}/api/credentials
+Authorization: Bearer {{token}}
+
+### Reveal credential
+GET {{baseUrl}}/api/credentials/{{credentialId}}/reveal
+Authorization: Bearer {{token}}
+
+### Development admin login
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "admin@pdv.local",
+  "password": "ChangeMe!123"
+}
+
+### Admin dashboard (use admin token)
+GET {{baseUrl}}/api/admin/dashboard
+Authorization: Bearer {{token}}
