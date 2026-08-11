@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Personal Digital Vault — secure document and credential management." />
+  <title>Personal Digital Vault</title>
+  <link rel="icon" href="assets/logo.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="css/styles.css?v=20260808-vault-desk" />
+</head>
+<body>
+  <noscript>
+    <div class="noscript">JavaScript must be enabled to use Personal Digital Vault.</div>
+  </noscript>
+
+  <div id="toastRegion" class="toast-region" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- Authentication -->
+  <main id="authView" class="auth-view">
+    <section class="auth-visual" aria-label="Product introduction">
+      <div class="auth-glow auth-glow-one"></div>
+      <div class="auth-glow auth-glow-two"></div>
+      <a class="brand brand-light" href="#" aria-label="Personal Digital Vault home">
+        <img src="assets/logo.svg" alt="" width="42" height="42" />
+        <span>Personal Digital Vault</span>
+      </a>
+
+      <div class="auth-copy">
+        <span class="eyebrow"><span class="status-dot"></span> Private by design</span>
+        <h1>Your important files.<br />One secure place.</h1>
+        <p>
+          Store personal documents and sensitive credential records with encrypted storage,
+          owner-only access, and SHA-256 integrity verification.
+        </p>
+        <div class="security-points">
+          <div class="security-point">
+            <span class="security-icon"><svg><use href="#icon-lock"></use></svg></span>
+            <div><strong>AES-encrypted storage</strong><small>Sensitive data stays protected at rest.</small></div>
+          </div>
+          <div class="security-point">
+            <span class="security-icon"><svg><use href="#icon-shield"></use></svg></span>
+            <div><strong>Owner-only access</strong><small>Every private action is authorization checked.</small></div>
+          </div>
+          <div class="security-point">
+            <span class="security-icon"><svg><use href="#icon-fingerprint"></use></svg></span>
+            <div><strong>Integrity verification</strong><small>SHA-256 detects file changes or corruption.</small></div>
+          </div>
+        </div>
+      </div>
+      <p class="auth-footnote">Securely organised. Easy to use.</p>
+    </section>
+
+    <section class="auth-panel">
+      <div class="auth-card">
+        <div class="mobile-brand">
+          <img src="assets/logo.svg" alt="" width="38" height="38" />
+          <span>Personal Digital Vault</span>
+        </div>
+
+        <div class="auth-tabs" role="tablist" aria-label="Authentication options">
+          <button id="loginTab" class="auth-tab active" type="button" role="tab" aria-selected="true">Sign in</button>
+          <button id="registerTab" class="auth-tab" type="button" role="tab" aria-selected="false">Create account</button>
+        </div>
+
+        <div id="loginPanel" class="auth-form-panel" role="tabpanel">
+          <div class="auth-heading">
+            <h2>Welcome back</h2>
+            <p>Sign in to open your private vault.</p>
+          </div>
+          <form id="loginForm" novalidate>
+            <div class="field">
+              <label for="loginEmail">Email address</label>
+              <div class="input-wrap">
+                <svg><use href="#icon-mail"></use></svg>
+                <input id="loginEmail" name="email" type="email" autocomplete="email" placeholder="you@example.com" required />
+              </div>
+              <span class="field-error" data-error-for="loginEmail"></span>
+            </div>
+            <div class="field">
+              <label for="loginPassword">Password</label>
+              <div class="input-wrap">
+                <svg><use href="#icon-key"></use></svg>
+                <input id="loginPassword" name="password" type="password" autocomplete="current-password" placeholder="Enter your password" required />
+                <button class="password-toggle" type="button" data-toggle-password="loginPassword" aria-label="Show password">
+                  <svg><use href="#icon-eye"></use></svg>
+                </button>
+              </div>
+              <span class="field-error" data-error-for="loginPassword"></span>
+            </div>
+            <label class="check-row">
+              <input id="rememberMe" type="checkbox" />
+              <span>Keep me signed in on this device</span>
+            </label>
+            <button class="button button-primary button-full" type="submit">
+              <span>Sign in securely</span><svg><use href="#icon-arrow-right"></use></svg>
+            </button>
+          </form>
+          <div class="demo-note">
+            <svg><use href="#icon-info"></use></svg>
+            <span>Start the backend first, then open this frontend on port <strong>5500</strong>.</span>
+          </div>
+        </div>
+
+        <div id="registerPanel" class="auth-form-panel hidden" role="tabpanel">
+          <div class="auth-heading">
+            <h2>Create your vault</h2>
+            <p>Set up a private account in a few seconds.</p>
+          </div>
+          <form id="registerForm" novalidate>
+            <div class="field">
+              <label for="registerName">Full name</label>
+              <div class="input-wrap">
+                <svg><use href="#icon-user"></use></svg>
+                <input id="registerName" name="fullName" type="text" autocomplete="name" placeholder="Your full name" maxlength="120" required />
+              </div>
+              <span class="field-error" data-error-for="registerName"></span>
+            </div>
+            <div class="field-grid">
+              <div class="field">
+                <label for="registerEmail">Email address</label>
+                <div class="input-wrap">
+                  <svg><use href="#icon-mail"></use></svg>
+                  <input id="registerEmail" name="email" type="email" autocomplete="email" placeholder="you@example.com" maxlength="256" required />
+                </div>
+                <span class="field-error" data-error-for="registerEmail"></span>
+              </div>
+              <div class="field">
+                <label for="registerPhone">Phone <span class="optional">Optional</span></label>
+                <div class="input-wrap">
+                  <svg><use href="#icon-phone"></use></svg>
+                  <input id="registerPhone" name="phoneNumber" type="tel" autocomplete="tel" placeholder="+94 7X XXX XXXX" maxlength="30" />
+                </div>
+              </div>
+            </div>
+            <div class="field">
+              <label for="registerPassword">Password</label>
+              <div class="input-wrap">
+                <svg><use href="#icon-key"></use></svg>
+                <input id="registerPassword" name="password" type="password" autocomplete="new-password" placeholder="Minimum 8 characters" minlength="8" maxlength="100" required />
+                <button class="password-toggle" type="button" data-toggle-password="registerPassword" aria-label="Show password">
+                  <svg><use href="#icon-eye"></use></svg>
+                </button>
+              </div>
+              <div class="password-meter" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+              <span id="passwordHint" class="field-hint">Use at least 8 characters.</span>
+              <span class="field-error" data-error-for="registerPassword"></span>
+            </div>
+            <button class="button button-primary button-full" type="submit">
+              <span>Create secure account</span><svg><use href="#icon-arrow-right"></use></svg>
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Application -->
+  <div id="appView" class="app-shell hidden">
+    <aside id="sidebar" class="sidebar">
+      <div class="sidebar-brand">
+        <img src="assets/logo.svg" alt="" width="40" height="40" />
+        <div><strong>Personal</strong><span>Digital Vault</span></div>
+      </div>
+
+      <nav class="nav-list" aria-label="Main navigation">
+        <button class="nav-item active" type="button" data-route="dashboard">
+          <svg><use href="#icon-dashboard"></use></svg><span>Dashboard</span>
+        </button>
+        <button class="nav-item" type="button" data-route="documents">
+          <svg><use href="#icon-file"></use></svg><span>Documents</span>
+        </button>
+        <button class="nav-item" type="button" data-route="folders">
+          <svg><use href="#icon-folder"></use></svg><span>Folders</span>
+        </button>
+        <button class="nav-item" type="button" data-route="categories">
+          <svg><use href="#icon-tag"></use></svg><span>Categories</span>
+        </button>
+        <button class="nav-item" type="button" data-route="credentials">
+          <svg><use href="#icon-key"></use></svg><span>Credentials</span>
+        </button>
+        <button class="nav-item" type="button" data-route="profile">
+          <svg><use href="#icon-user"></use></svg><span>My profile</span>
+        </button>
+        <button id="adminNav" class="nav-item hidden" type="button" data-route="admin">
+          <svg><use href="#icon-shield"></use></svg><span>Administration</span>
+        </button>
+      </nav>
+
+      <div class="sidebar-security-card">
+        <div class="security-card-icon"><svg><use href="#icon-shield-check"></use></svg></div>
+        <div>
+          <strong>Vault protected</strong>
+          <span>JWT + AES + SHA-256</span>
+        </div>
+      </div>
+
+      <button id="logoutButton" class="sidebar-logout" type="button">
+        <svg><use href="#icon-logout"></use></svg><span>Sign out</span>
+      </button>
+    </aside>
+
+    <div id="sidebarOverlay" class="sidebar-overlay"></div>
+
+    <div class="app-main">
+      <header class="topbar">
+        <div class="topbar-left">
+          <button id="menuButton" class="icon-button menu-button" type="button" aria-label="Open navigation">
+            <svg><use href="#icon-menu"></use></svg>
+          </button>
+          <div>
+            <p id="pageEyebrow" class="page-eyebrow">Overview</p>
+            <h1 id="pageTitle">Dashboard</h1>
+          </div>
+        </div>
+        <div class="topbar-actions">
+          <div class="connection-pill" title="Backend API endpoint">
+            <span id="connectionDot" class="connection-dot"></span>
+            <span id="connectionText">API ready</span>
+          </div>
+          <button id="quickUploadButton" class="button button-primary button-compact" type="button">
+            <svg><use href="#icon-upload"></use></svg><span>Upload file</span>
+          </button>
+          <button id="profileMenuButton" class="profile-chip" type="button" aria-label="Open profile">
+            <span id="profileInitials" class="avatar">U</span>
+            <span class="profile-chip-copy"><strong id="headerUserName">User</strong><small id="headerUserRole">User</small></span>
+            <svg class="chevron"><use href="#icon-chevron-down"></use></svg>
+          </button>
+        </div>
+      </header>
+
+      <main id="content" class="content" tabindex="-1"></main>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div id="modalBackdrop" class="modal-backdrop hidden" role="presentation">
+    <section id="modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <header class="modal-header">
+        <div>
+          <p id="modalEyebrow" class="modal-eyebrow"></p>
+          <h2 id="modalTitle"></h2>
+        </div>
+        <button id="modalClose" class="icon-button" type="button" aria-label="Close dialog">
+          <svg><use href="#icon-x"></use></svg>
+        </button>
+      </header>
+      <div id="modalBody" class="modal-body"></div>
+    </section>
+  </div>
+
+  <!-- Confirmation Modal -->
+  <div id="confirmBackdrop" class="modal-backdrop hidden" role="presentation">
+    <section class="modal modal-small" role="alertdialog" aria-modal="true" aria-labelledby="confirmTitle">
+      <div class="confirm-icon"><svg><use href="#icon-alert"></use></svg></div>
+      <h2 id="confirmTitle">Confirm action</h2>
+      <p id="confirmMessage"></p>
+      <div class="modal-actions">
+        <button id="confirmCancel" class="button button-secondary" type="button">Cancel</button>
+        <button id="confirmAccept" class="button button-danger" type="button">Continue</button>
+      </div>
+    </section>
+  </div>
+
+  <!-- SVG icon sprite -->
+  <svg class="svg-sprite" aria-hidden="true">
+    <symbol id="icon-dashboard" viewBox="0 0 24 24"><path d="M4 13h6V4H4v9Zm0 7h6v-5H4v5Zm10 0h6v-9h-6v9Zm0-16v5h6V4h-6Z"/></symbol>
+    <symbol id="icon-file" viewBox="0 0 24 24"><path d="M6 2h8l5 5v15H6V2Zm8 1.8V8h4.2M9 13h7M9 17h7"/></symbol>
+    <symbol id="icon-folder" viewBox="0 0 24 24"><path d="M3 6.5h7l2 2h9v10.5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6.5Zm0 3h18"/></symbol>
+    <symbol id="icon-tag" viewBox="0 0 24 24"><path d="M20 13 13 20l-9-9V4h7l9 9Z"/><circle cx="8.5" cy="8.5" r="1.4"/></symbol>
+    <symbol id="icon-key" viewBox="0 0 24 24"><path d="M14.5 8.5a5 5 0 1 1-3.8 8.2L3 16.7V13h3v-3h3.3a5 5 0 0 1 5.2-1.5Zm0 3a2 2 0 1 0 0 4 2 2 0 0 0 0-4Z"/></symbol>
+    <symbol id="icon-user" viewBox="0 0 24 24"><path d="M12 12a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Zm8 9a8 8 0 0 0-16 0"/></symbol>
+    <symbol id="icon-shield" viewBox="0 0 24 24"><path d="M12 2 20 5v6c0 5.2-3.4 9.1-8 11-4.6-1.9-8-5.8-8-11V5l8-3Z"/></symbol>
+    <symbol id="icon-shield-check" viewBox="0 0 24 24"><path d="M12 2 20 5v6c0 5.2-3.4 9.1-8 11-4.6-1.9-8-5.8-8-11V5l8-3Z"/><path d="m8.5 12 2.2 2.2 4.8-5"/></symbol>
+    <symbol id="icon-lock" viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3M12 14v3"/></symbol>
+    <symbol id="icon-fingerprint" viewBox="0 0 24 24"><path d="M8.4 4.2A8.4 8.4 0 0 1 20 12M4 12a8 8 0 0 1 2.2-5.5M8 12a4 4 0 0 1 8 0c0 4-1 7-3 9M4.5 16.5A13.5 13.5 0 0 0 6 21M12 12c0 3.8-.4 6.6-2 9M16.5 17.5a22 22 0 0 0 .8-5.5"/></symbol>
+    <symbol id="icon-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></symbol>
+    <symbol id="icon-phone" viewBox="0 0 24 24"><path d="M7.5 3 5 4.2c-1.1.5-1.6 1.8-1.2 2.9 2.6 6.7 6.4 10.5 13.1 13.1 1.1.4 2.4-.1 2.9-1.2l1.2-2.5-5-2-1.2 2c-2.9-1.3-6-4.4-7.3-7.3l2-1.2-2-5Z"/></symbol>
+    <symbol id="icon-eye" viewBox="0 0 24 24"><path d="M2 12s3.6-6 10-6 10 6 10 6-3.6 6-10 6S2 12 2 12Z"/><circle cx="12" cy="12" r="2.5"/></symbol>
+    <symbol id="icon-eye-off" viewBox="0 0 24 24"><path d="m3 3 18 18M10.6 6.2A10.3 10.3 0 0 1 12 6c6.4 0 10 6 10 6a16 16 0 0 1-2.5 3.2M6.5 6.7C3.6 8.5 2 12 2 12s3.6 6 10 6a10 10 0 0 0 3.5-.6M9.9 9.9a3 3 0 0 0 4.2 4.2"/></symbol>
+    <symbol id="icon-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></symbol>
+    <symbol id="icon-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></symbol>
+    <symbol id="icon-upload" viewBox="0 0 24 24"><path d="M12 16V4m-5 5 5-5 5 5M5 15v5h14v-5"/></symbol>
+    <symbol id="icon-download" viewBox="0 0 24 24"><path d="M12 4v12m-5-5 5 5 5-5M5 20h14"/></symbol>
+    <symbol id="icon-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="icon-search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 5 5"/></symbol>
+    <symbol id="icon-more" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.2"/><circle cx="12" cy="12" r="1.2"/><circle cx="19" cy="12" r="1.2"/></symbol>
+    <symbol id="icon-edit" viewBox="0 0 24 24"><path d="m14 5 5 5M4 20l3.5-.7L20 6.8 17.2 4 4.7 16.5 4 20Z"/></symbol>
+    <symbol id="icon-trash" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 14h10l1-14M10 11v6M14 11v6"/></symbol>
+    <symbol id="icon-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
+    <symbol id="icon-alert" viewBox="0 0 24 24"><path d="M12 3 2.5 20h19L12 3Z"/><path d="M12 9v5M12 17.5v.5"/></symbol>
+    <symbol id="icon-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+    <symbol id="icon-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+    <symbol id="icon-x" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
+    <symbol id="icon-chevron-down" viewBox="0 0 24 24"><path d="m7 9.5 5 5 5-5"/></symbol>
+    <symbol id="icon-chevron-right" viewBox="0 0 24 24"><path d="m9 7 5 5-5 5"/></symbol>
+    <symbol id="icon-logout" viewBox="0 0 24 24"><path d="M10 4H4v16h6M14 8l4 4-4 4M8 12h10"/></symbol>
+    <symbol id="icon-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="11" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h2"/></symbol>
+    <symbol id="icon-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"/></symbol>
+    <symbol id="icon-refresh" viewBox="0 0 24 24"><path d="M20 6v5h-5M4 18v-5h5M18.5 9a7 7 0 0 0-12-2.5L4 11M5.5 15a7 7 0 0 0 12 2.5L20 13"/></symbol>
+    <symbol id="icon-database" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v7c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 12v7c0 1.7 3.6 3 8 3s8-1.3 8-3v-7"/></symbol>
+    <symbol id="icon-settings" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1-2.8 2.8-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.6v.2h-4V21a1.7 1.7 0 0 0-1-1.6 1.7 1.7 0 0 0-1.9.3l-.1.1L4.2 17l.1-.1a1.7 1.7 0 0 0 .3-1.9A1.7 1.7 0 0 0 3 14H2.8v-4H3a1.7 1.7 0 0 0 1.6-1 1.7 1.7 0 0 0-.3-1.9L4.2 7 7 4.2l.1.1a1.7 1.7 0 0 0 1.9.3 1.7 1.7 0 0 0 1-1.6v-.2h4V3a1.7 1.7 0 0 0 1 1.6 1.7 1.7 0 0 0 1.9-.3l.1-.1L19.8 7l-.1.1a1.7 1.7 0 0 0-.3 1.9 1.7 1.7 0 0 0 1.6 1h.2v4H21a1.7 1.7 0 0 0-1.6 1Z"/></symbol>
+  </svg>
+
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/app.js?v=20260809-brd-gaps-fixed"></script>
+</body>
+</html>
